@@ -1,0 +1,201 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  text-align: center;
+}
+
+.modal__title {
+  font-size: 35px;
+  text-align: left;
+}
+.modal__block {
+  background-color: #fff;
+  width: min(520px, 92vw);
+  border-radius: 20px;
+  color: rgb(40, 43, 45);
+  font-size: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.modal__Input-Wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.modal__Input {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  background: #fff;
+}
+
+.modal__Input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__Input:focus {
+  outline: none;
+  border-color: rgba(0, 0, 0, 0.35);
+}
+
+/* Hashtag icon */
+.HashIcon {
+  position: absolute;
+  right: 12px;
+  top: 30%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+li {
+  list-style: none;
+}
+
+.modal__submit-btn {
+  color: white;
+  font-size: 15px;
+  border-radius: 45px;
+  border: none;
+  background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0) 55%
+    ),
+    conic-gradient(
+      from 0deg,
+      #ff3b30 0%,
+      #ff9500 20%,
+      #ffcc00 35%,
+      #34c759 50%,
+      #007aff 65%,
+      #5856d6 80%,
+      #af52de 89%,
+      #ff00f2 93%,
+      #ff00b3 96%,
+      #ff0062 98%,
+      #ff0062 100%
+    );
+  backdrop-filter: blur(6px) saturate(1.1);
+  -webkit-backdrop-filter: blur(6px) saturate(1.1);
+
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.modal__group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal__groupLabel {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* radio colors */
+
+.colorRadios {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  padding-bottom: 30px;
+}
+.colorRadio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.colorRadio__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.colorRadio__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  outline: 2px solid rgba(0, 0, 0, 0.18);
+  outline-offset: 2px;
+}
+
+/* Always show each color */
+.colorRadio--red .colorRadio__dot {
+  background: #ff3b30;
+}
+.colorRadio--orange .colorRadio__dot {
+  background: #ff9500;
+}
+.colorRadio--yellow .colorRadio__dot {
+  background: #ffcc00;
+}
+.colorRadio--green .colorRadio__dot {
+  background: #34c759;
+}
+.colorRadio--blue .colorRadio__dot {
+  background: #007aff;
+}
+.colorRadio--purple .colorRadio__dot {
+  background: #af52de;
+}
+
+/* Highlight the selected one */
+.colorRadio__input:checked + .colorRadio__dot {
+  outline-color: rgba(0, 0, 0, 0.65);
+  outline-offset: 3px;
+}
+
+/*addModal*/
+.addPostBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.addPostBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  border: none;
+}
+
+.modal__cancel-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  background: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal__cancel-btn:hover {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.modal__close-btn {
+  background: none;
+  color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.modal__close-btn:hover {
+  color: rgba(0, 0, 0, 0.85);
+}

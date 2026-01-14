@@ -1,0 +1,31 @@
+.searchBarWrapper {
+  position: relative;
+  display: flex;
+}
+
+.searchBarDecal {
+  padding: 5px;
+}
+
+.img.searchBarIcon {
+  position: absolute;
+  top: 50%;
+  left: 80px;
+  width: 20px;
+  height: 20px;
+}
+
+.searchBar {
+  width: 220px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  background: #fff;
+}
+
+.searchBar:focus {
+  outline: none;
+  border-color: rgba(95, 95, 95, 0.649);
+}

@@ -1,0 +1,14 @@
+.footer {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  color: rgb(118, 118, 118);
+}
+.footer__text {
+  flex-direction: flex-start;
+  padding-left: 20px;
+}
+
+.footer__text-right {
+  margin-left: auto;
+  padding-right: 20px;
+}

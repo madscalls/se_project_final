@@ -1,0 +1,154 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding-top: 15px;
+}
+
+.topbar__inner {
+  height: 64px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 22px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.5px;
+  position: relative;
+  padding: 2em;
+  left: 10px;
+  text-decoration: none;
+  color: inherit;
+  z-index: 100;
+}
+
+a.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none; /* IMPORTANT */
+}
+
+.logo:visited {
+  text-decoration: none;
+}
+
+.logo:active,
+.logo:focus {
+  text-decoration: none;
+}
+
+.logoDot {
+  font-weight: 900;
+}
+
+/*rainbow hover*/
+/* the glow layer */
+.logo::before {
+  content: "";
+  position: absolute;
+  inset: 20px; /* how far the glow extends */
+  border-radius: 999px;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: scale(0.95);
+
+  /* smoky rainbow aura */
+  background: radial-gradient(
+      circle at 30% 35%,
+      rgba(255, 59, 48, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(circle at 70% 30%, rgba(255, 0, 0, 0.726), transparent 55%),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(255, 145, 0, 0.736),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(0, 123, 255, 0.615),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 55% 55%,
+      rgba(175, 82, 222, 0.69),
+      transparent 60%
+    );
+
+  filter: blur(14px);
+  mix-blend-mode: screen;
+
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.logo:hover::before {
+  opacity: 1;
+  transform: scale(1);
+  animation: logoGlowDrift 6.5s ease-in-out infinite;
+}
+
+.logo:hover {
+  transform: translateY(-0.5px);
+}
+
+/* subtle drifting “smoke” movement */
+@keyframes logoGlowDrift {
+  0% {
+    transform: scale(1) translate(0px, 0px);
+  }
+  25% {
+    transform: scale(1.02) translate(2px, -1px);
+  }
+  50% {
+    transform: scale(1.01) translate(-1px, 2px);
+  }
+  75% {
+    transform: scale(1.03) translate(-2px, -1px);
+  }
+  100% {
+    transform: scale(1) translate(0px, 0px);
+  }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .logo:hover::before {
+    animation: none;
+  }
+}
+/*rainbow hover*/
+
+nav.topbarActions {
+  margin-left: auto;
+}
+
+.topbarActions {
+  display: flex;
+  gap: 10px;
+}
+
+.iconBtn {
+  height: 38px;
+  width: 38px;
+  border-radius: 10px;
+  /* border: 1px solid rgba(0, 0, 0, 0.12); */
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+}
+
+.iconBtnImg {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}

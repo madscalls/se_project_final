@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+.topbar__inner,
+.colorDots__inner,
+.content__inner {
+  /* width: min(1100px, 100%); */
+  margin: 0 auto;
+  padding: 0 18px;
+  width: 100%;
+}
+
+/* ---------- Breakpoints ---------- */
+/* @media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+} */

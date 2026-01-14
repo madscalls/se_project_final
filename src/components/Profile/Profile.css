@@ -1,0 +1,57 @@
+.profile {
+}
+
+.profile__text {
+  color: #161616;
+}
+.profile__wrapper {
+  flex-direction: row;
+  position: relative;
+}
+
+.profile__content {
+  padding: 10px 30px;
+}
+.profile__avatar {
+  position: absolute;
+  right: 30px;
+  top: 5px;
+}
+.profile__header {
+  font-size: 30px;
+  margin: 0;
+}
+.profile__button {
+  border: none;
+  background-color: #fff;
+  color: #323232;
+}
+.profile__border {
+  border-bottom: 4px solid #000;
+}
+.profile__username {
+  font-size: 40px;
+  margin: 0;
+  padding-top: 30px;
+  font-weight: 500;
+}
+.profile__posts-info {
+  font-size: 30px;
+}
+.profile__edit-btn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 16px;
+  top: 92px;
+  width: 30px;
+  height: 30px;
+}
+.profile__edit-icon {
+  border: none;
+  color: #fff;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
