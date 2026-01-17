@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./AddModal.css";
 
 import HashIcon from "../../assets/Hash.svg";
+import Dropzone from "../Dropzone/Dropzone";
 
 export default function AddModal({ onClose }) {
   const [selectedColor, setSelectedColor] = useState("red");
@@ -13,7 +14,7 @@ export default function AddModal({ onClose }) {
     <div className="modal" onClick={onClose}>
       <div className="modal__block" onClick={(e) => e.stopPropagation()}>
         <h1 className="modal__title">Add your creativity...</h1>
-
+        <Dropzone />
         <ul className="modal__inputs">
           <li>
             <button
