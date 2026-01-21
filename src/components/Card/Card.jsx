@@ -1,24 +1,25 @@
 import React from "react";
 import "./Card.css";
-// import purpleButterfly from "../../assets/purpleButterfly.jpg"; // adjust path if needed
-//re-style after API
 
-export default function Card({ purpleButterfly, onClick, children }) {
+export default function Card({ imageSrc, alt = "", onClick, children }) {
   return (
     <div
       className="card"
       onClick={onClick}
       role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
     >
       <div className="card__img">
-        <img
-          src={purpleButterfly}
-          alt="butterfly"
-          className="cardPlaceholder"
-        />
+        <img src={imageSrc} alt={alt} className="cardPlaceholder" />
       </div>
-      <div className="card__close-btn">X</div>
-      <div className="card__hashtags"></div>
+
+      {children}
+
+      <button type="button" className="card__close-btn" aria-label="Remove">
+        ×
+      </button>
+
+      <div className="card__hashtags" />
     </div>
   );
 }

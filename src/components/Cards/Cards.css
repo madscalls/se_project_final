@@ -11,5 +11,10 @@
 .grid {
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(4, minmax(0, 1fr)); /* Desktop */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.cards__empty {
+  margin: 12px 0 0;
+  opacity: 0.7;
 }

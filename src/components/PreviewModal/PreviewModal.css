@@ -1,0 +1,14 @@
+.preview {
+  display: grid;
+  gap: 12px;
+}
+.preview__img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+.preview__tags {
+  margin: 0;
+  opacity: 0.8;
+}

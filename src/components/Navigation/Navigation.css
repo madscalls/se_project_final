@@ -1,0 +1,6 @@
+.iconBtnImg--avatar {
+  width: 28px; /* or whatever your icons are */
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+}

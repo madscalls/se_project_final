@@ -2,12 +2,10 @@ import React from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 
-import bookmark from "../../assets/bookmark.svg";
-import Home from "../../assets/Home.svg";
-import icon from "../../assets/icon.svg";
 import SearchBar from "../SearchBar/SearchBar";
+import Navigation from "../Navigation/Navigation";
 
-export default function Header({ onAddClick }) {
+export default function Header({ onAddClick, currentUser }) {
   return (
     <header className="topbar">
       <div className="topbar__inner">
@@ -18,28 +16,7 @@ export default function Header({ onAddClick }) {
           ic<span className="logoDot">.</span>
         </Link>
 
-        <nav className="topbarActions">
-          <button className="iconBtn" aria-label="Saved posts" type="button">
-            <img src={bookmark} className="iconBtnImg" alt="Saved Posts" />
-          </button>
-          <button
-            className="iconBtn"
-            aria-label="Add post"
-            onClick={onAddClick}
-            type="button"
-          >
-            <img src={icon} className="iconBtnImg" alt="Saved Posts" />
-          </button>
-          <Link to="/" className="iconBtn" aria-label="Home">
-            <img src={Home} className="iconBtnImg" alt="Home" />
-          </Link>
-
-          <button className="iconBtn" aria-label="Profile" type="button">
-            <Link to="/profile" className="iconBtn" aria-label="Profile">
-              👤
-            </Link>
-          </button>
-        </nav>
+        <Navigation onAddClick={onAddClick} currentUser={currentUser} />
       </div>
     </header>
   );

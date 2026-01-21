@@ -1,81 +1,151 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddModal.css";
+import { uploadImage } from "../../utils/api";
 
 import HashIcon from "../../assets/Hash.svg";
 import Dropzone from "../Dropzone/Dropzone";
 
-export default function AddModal({ onClose }) {
-  const [selectedColor, setSelectedColor] = useState("red");
-
+export default function AddModal({ onClose, onAddPost }) {
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+
+  const [selectedColor, setSelectedColor] = useState("red");
+  const [file, setFile] = useState(null);
+
+  const [hashtags, setHashtags] = useState("");
+  const [error, setError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  useEffect(() => {
+    if (!file) {
+      setPreviewUrl("");
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+
+  useEffect(() => {
+    if (file && error) setError("");
+  }, [file]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isUploading) return;
+
+    if (!file) {
+      setError("Please choose an image first.");
+      return;
+    }
+
+    setError("");
+    setIsUploading(true);
+
+    uploadImage(file)
+      .then((data) => {
+        onAddPost({
+          imageUrl: data.url,
+          publicId: data.publicId,
+          color: selectedColor,
+          hashtags: hashtags.trim(),
+        });
+        onClose();
+      })
+      .catch(() => setError("Upload failed. Please try again."))
+      .finally(() => setIsUploading(false));
+  };
 
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal__block" onClick={(e) => e.stopPropagation()}>
         <h1 className="modal__title">Add your creativity...</h1>
-        <Dropzone />
-        <ul className="modal__inputs">
-          <li>
-            <button
-              className="modal__close-btn"
-              type="button"
-              onClick={onClose}
-              aria-label="close modal"
-            >
-              X
-            </button>
-          </li>
-          <li>
-            <label className="modal__input_label">
-              <div className="modal__Input-Wrapper">
-                <input
-                  type="text"
-                  className="modal__Input"
-                  aria-label="Hashtags"
-                />
-                <img src={HashIcon} alt="HashTag" className="HashIcon" />
-              </div>
-            </label>
-          </li>
 
-          <li className="modal__group">
-            <div className="colorRadios">
-              {colors.map((color) => (
-                <label
-                  key={color}
-                  className={`colorRadio colorRadio--${color}`}
-                >
+        <form onSubmit={handleSubmit}>
+          <Dropzone
+            onFileSelect={setFile}
+            previewUrl={previewUrl}
+            error={error}
+            setError={setError}
+          />
+
+          <ul className="modal__inputs">
+            <li>
+              <button
+                className="modal__close-btn"
+                type="button"
+                onClick={onClose}
+                aria-label="Close modal"
+                disabled={isUploading}
+              >
+                ×
+              </button>
+            </li>
+
+            <li>
+              <label className="modal__input_label">
+                <div className="modal__Input-Wrapper">
                   <input
-                    type="radio"
-                    name="postColor"
-                    value={color}
-                    className="colorRadio__input"
-                    checked={selectedColor === color}
-                    onChange={() => setSelectedColor(color)}
+                    type="text"
+                    className="modal__Input"
+                    aria-label="Hashtags"
+                    placeholder="#purple #moody #soft"
+                    value={hashtags}
+                    onChange={(e) => setHashtags(e.target.value)}
+                    disabled={isUploading}
                   />
-                  <span className="colorRadio__dot" />
-                </label>
-              ))}
-            </div>
-          </li>
+                  <img src={HashIcon} alt="HashTag" className="HashIcon" />
+                </div>
+              </label>
+            </li>
 
-          <li>
-            <button className="modal__submit-btn" type="button">
-              Add post
-            </button>
-          </li>
+            <li className="modal__group">
+              <div className="colorRadios">
+                {colors.map((color) => (
+                  <label
+                    key={color}
+                    className={`colorRadio colorRadio--${color}`}
+                  >
+                    <input
+                      type="radio"
+                      name="postColor"
+                      value={color}
+                      className="colorRadio__input"
+                      checked={selectedColor === color}
+                      onChange={() => setSelectedColor(color)}
+                      disabled={isUploading}
+                    />
+                    <span className="colorRadio__dot" />
+                  </label>
+                ))}
+              </div>
+            </li>
 
-          <li>
-            <button
-              className="modal__cancel-btn"
-              type="button"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-          </li>
-        </ul>
+            <li>
+              <button
+                className="modal__submit-btn"
+                type="submit"
+                disabled={isUploading || !file}
+              >
+                {isUploading ? "Uploading..." : "Add post"}
+              </button>
+            </li>
+
+            <li>
+              <button
+                className="modal__cancel-btn"
+                type="button"
+                onClick={onClose}
+                disabled={isUploading}
+              >
+                Cancel
+              </button>
+            </li>
+          </ul>
+        </form>
       </div>
     </div>
   );

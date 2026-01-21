@@ -1,0 +1,61 @@
+.login {
+  position: relative;
+  z-index: 1;
+}
+
+.loginDots {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.loginDots::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  /* subtle bottom hue fade like dashboard */
+  background: linear-gradient(
+    to top,
+    rgba(140, 60, 255, 0.55) 0%,
+    rgba(140, 60, 255, 0) 66%
+  );
+  filter: blur(18px);
+}
+
+.loginDots__inner {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  opacity: 0.35;
+}
+
+.loginDots__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.loginDots__dot--red {
+  background: rgb(255, 0, 0);
+}
+.loginDots__dot--orange {
+  background: rgb(255, 140, 0);
+}
+.loginDots__dot--yellow {
+  background: rgb(255, 215, 0);
+}
+.loginDots__dot--green {
+  background: rgb(0, 170, 90);
+}
+.loginDots__dot--blue {
+  background: rgb(0, 120, 255);
+}
+.loginDots__dot--purple {
+  background: rgb(140, 60, 255);
+}

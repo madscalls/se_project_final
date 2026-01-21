@@ -37,3 +37,82 @@ body {
     grid-template-columns: 1fr;
   }
 } */
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: background 350ms ease;
+}
+
+/*
+  Bottom hue: strong at 100% (bottom),
+  fades to 0 by ~66% height (so top 2/3 is clean).
+  The "0.75 intensity" is represented by the alpha value here.
+*/
+.app--red::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 0, 0, 0.75) 0%,
+    rgba(255, 0, 0, 0) 66%,
+    rgba(255, 0, 0, 0) 100%
+  );
+}
+
+.app--orange::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 140, 0, 0.75) 0%,
+    rgba(255, 140, 0, 0) 66%,
+    rgba(255, 140, 0, 0) 100%
+  );
+}
+
+.app--yellow::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 215, 0, 0.75) 0%,
+    rgba(255, 215, 0, 0) 66%,
+    rgba(255, 215, 0, 0) 100%
+  );
+}
+
+.app--green::before {
+  background: linear-gradient(
+    to top,
+    rgba(1, 201, 74, 0.75) 0%,
+    rgba(0, 170, 90, 0) 66%,
+    rgba(0, 170, 90, 0) 100%
+  );
+}
+
+.app--blue::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 120, 255, 0.75) 0%,
+    rgba(0, 120, 255, 0) 66%,
+    rgba(0, 120, 255, 0) 100%
+  );
+}
+
+.app--purple::before {
+  background: linear-gradient(
+    to top,
+    rgba(140, 60, 255, 0.75) 0%,
+    rgba(140, 60, 255, 0) 66%,
+    rgba(140, 60, 255, 0) 100%
+  );
+}
+
+/* Neutral/default */
+.app--all::before {
+  background: none;
+}
