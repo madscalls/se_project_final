@@ -27,12 +27,14 @@ export default function EditProfileModal({
       return;
     }
 
+    setError("");
+
     try {
-      setError("");
       await onSave?.({
         username: username.trim(),
         avatarUrl: avatarUrl.trim(),
       });
+
       onClose();
     } catch (err) {
       setError(err?.message || "Failed to update profile.");

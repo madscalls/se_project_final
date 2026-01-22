@@ -107,16 +107,18 @@ export default function AuthProvider({ children }) {
   async function updateProfile({ username, avatarUrl }) {
     if (!token) throw new Error("Not authenticated");
 
+    const payload = {};
+    if (typeof username === "string" && username.trim())
+      payload.name = username.trim();
+    if (typeof avatarUrl === "string") payload.avatarUrl = avatarUrl.trim();
+
     const res = await fetch(`${API_BASE}/api/users/me`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        name: username,
-        avatarUrl,
-      }),
+      body: JSON.stringify(payload),
     });
 
     const data = await safeJson(res);
