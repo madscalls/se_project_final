@@ -19,7 +19,7 @@ export default function EditProfileModal({
     setError("");
   }, [isOpen, currentUser]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!username.trim()) {
@@ -27,12 +27,16 @@ export default function EditProfileModal({
       return;
     }
 
-    onSave({
-      username: username.trim(),
-      avatarUrl: avatarUrl.trim(),
-    });
-
-    onClose();
+    try {
+      setError("");
+      await onSave?.({
+        username: username.trim(),
+        avatarUrl: avatarUrl.trim(),
+      });
+      onClose();
+    } catch (err) {
+      setError(err?.message || "Failed to update profile.");
+    }
   };
 
   return (

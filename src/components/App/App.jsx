@@ -24,7 +24,8 @@ function ProtectedRoute({ isAllowed, redirectTo = "/login", children }) {
 export default function App() {
   const navigate = useNavigate();
 
-  const { user, isLoggedIn, isChecking, logout } = useContext(AuthContext);
+  const { user, isLoggedIn, isChecking, logout, updateProfile } =
+    useContext(AuthContext);
 
   const currentUser = useMemo(
     () => ({
@@ -83,7 +84,11 @@ export default function App() {
                   activeColor={activeColor}
                   onChange={setActiveColor}
                 />
-                <Cards posts={visiblePosts} onCardClick={setSelectedPost} />
+                <Cards
+                  posts={visiblePosts}
+                  onCardClick={setSelectedPost}
+                  activeColor={activeColor}
+                />
               </>
             </ProtectedRoute>
           }
@@ -124,8 +129,8 @@ export default function App() {
         isOpen={isEditProfileOpen}
         onClose={() => setIsEditProfileOpen(false)}
         currentUser={currentUser}
-        onSave={(updates) => {
-          console.log("Profile updates (local only for now):", updates);
+        onSave={async (updates) => {
+          await updateProfile(updates);
         }}
       />
 

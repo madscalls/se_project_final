@@ -19,7 +19,6 @@ async function safeJson(res) {
 export default function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("ic_token"));
   const [user, setUser] = useState(null);
-
   const [isChecking, setIsChecking] = useState(true);
 
   async function fetchMe(activeToken) {
@@ -67,7 +66,6 @@ export default function AuthProvider({ children }) {
 
   async function login({ email, password }) {
     setIsChecking(true);
-
     try {
       const res = await fetch(`${API_BASE}/api/signin`, {
         method: "POST",
@@ -83,7 +81,6 @@ export default function AuthProvider({ children }) {
 
       const me = await fetchMe(data.token);
       setUser(me);
-
       return me;
     } finally {
       setIsChecking(false);
@@ -92,7 +89,6 @@ export default function AuthProvider({ children }) {
 
   async function signup({ username, email, password }) {
     setIsChecking(true);
-
     try {
       const res = await fetch(`${API_BASE}/api/signup`, {
         method: "POST",
@@ -102,11 +98,32 @@ export default function AuthProvider({ children }) {
 
       const data = await safeJson(res);
       if (!res.ok) throw new Error(data.message || "Signup failed");
-
       return data;
     } finally {
       setIsChecking(false);
     }
+  }
+
+  async function updateProfile({ username, avatarUrl }) {
+    if (!token) throw new Error("Not authenticated");
+
+    const res = await fetch(`${API_BASE}/api/users/me`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: username,
+        avatarUrl,
+      }),
+    });
+
+    const data = await safeJson(res);
+    if (!res.ok) throw new Error(data.message || "Update failed");
+
+    setUser(data);
+    return data;
   }
 
   function logout() {
@@ -123,6 +140,7 @@ export default function AuthProvider({ children }) {
       isLoggedIn: !!user,
       login,
       signup,
+      updateProfile,
       logout,
     }),
     [token, user, isChecking],

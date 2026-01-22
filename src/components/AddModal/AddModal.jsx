@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./AddModal.css";
 import { uploadImage } from "../../utils/api";
 
 import HashIcon from "../../assets/Hash.svg";
 import Dropzone from "../Dropzone/Dropzone";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 
 export default function AddModal({ onClose, onAddPost }) {
+  const { token } = useContext(AuthContext);
+
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 
   const [selectedColor, setSelectedColor] = useState("red");
@@ -31,11 +34,16 @@ export default function AddModal({ onClose, onAddPost }) {
 
   useEffect(() => {
     if (file && error) setError("");
-  }, [file]);
+  }, [file, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isUploading) return;
+
+    if (!token) {
+      setError("You must be logged in to upload.");
+      return;
+    }
 
     if (!file) {
       setError("Please choose an image first.");
@@ -45,7 +53,7 @@ export default function AddModal({ onClose, onAddPost }) {
     setError("");
     setIsUploading(true);
 
-    uploadImage(file)
+    uploadImage(file, token)
       .then((data) => {
         onAddPost({
           imageUrl: data.url,
@@ -55,7 +63,9 @@ export default function AddModal({ onClose, onAddPost }) {
         });
         onClose();
       })
-      .catch(() => setError("Upload failed. Please try again."))
+      .catch((err) =>
+        setError(err?.message || "Upload failed. Please try again."),
+      )
       .finally(() => setIsUploading(false));
   };
 
