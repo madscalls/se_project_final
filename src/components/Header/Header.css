@@ -9,7 +9,6 @@
 .topbar__inner {
   height: 64px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
 }
 
@@ -34,13 +33,10 @@ a.logo {
   background: none;
   border: none;
   cursor: pointer;
-  text-decoration: none; /* IMPORTANT */
-}
-
-.logo:visited {
   text-decoration: none;
 }
 
+.logo:visited,
 .logo:active,
 .logo:focus {
   text-decoration: none;
@@ -50,26 +46,16 @@ a.logo {
   font-weight: 900;
 }
 
-/*rainbow hover*/
-.logo {
-  position: relative; /* needed for ::before positioning */
-}
-
 .logo::before {
   content: "";
   position: absolute;
-
-  /* extend outward instead of inward */
   inset: 1px;
-
   border-radius: 999px;
   pointer-events: none;
-
   opacity: 0;
   transform: scale(0.7);
-
   background:
-    /* remove white wash — use a transparent fade instead */ radial-gradient(
+    radial-gradient(
       circle at center,
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.25) 55%,
@@ -90,14 +76,11 @@ a.logo {
       #ff0062 98%,
       #ff0062 100%
     );
-
-  /* less blur + more saturation = visible color */
   filter: blur(34px) saturate(1.8) contrast(1.05);
-
-  /* “screen-like” glow effect on white backgrounds */
   mix-blend-mode: screen;
-
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
 }
 
 .logo:hover::before {
@@ -111,10 +94,9 @@ a.logo {
   color: #fff;
 }
 
-/* subtle drifting “smoke” movement */
 @keyframes logoGlowDrift {
   0% {
-    transform: scale(1) translate(0px, 0px);
+    transform: scale(1) translate(0, 0);
   }
   25% {
     transform: scale(1.02) translate(2px, -1px);
@@ -126,7 +108,7 @@ a.logo {
     transform: scale(1.03) translate(-2px, -1px);
   }
   100% {
-    transform: scale(1) translate(0px, 0px);
+    transform: scale(1) translate(0, 0);
   }
 }
 
@@ -135,8 +117,6 @@ a.logo {
     animation: none;
   }
 }
-
-/*rainbow hover*/
 
 nav.topbarActions {
   margin-left: auto;
@@ -151,7 +131,6 @@ nav.topbarActions {
   height: 38px;
   width: 38px;
   border-radius: 10px;
-  /* border: 1px solid rgba(0, 0, 0, 0.12); */
   background: #fff;
   cursor: pointer;
   position: relative;
@@ -161,4 +140,29 @@ nav.topbarActions {
   position: absolute;
   top: 6px;
   right: 8px;
+}
+
+.header__logout {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #666;
+}
+
+.header__logout:hover {
+  background: linear-gradient(
+    90deg,
+    #ff3b30,
+    #ff9500,
+    #ffcc00,
+    #34c759,
+    #007aff,
+    #af52de
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

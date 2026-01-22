@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import Navigation from "../Navigation/Navigation";
 
-export default function Header({ onAddClick, currentUser }) {
+export default function Header({
+  onAddClick,
+  currentUser,
+  onLogin,
+  onLogout,
+  isLoggedIn,
+}) {
   return (
     <header className="topbar">
       <div className="topbar__inner">
@@ -17,6 +23,9 @@ export default function Header({ onAddClick, currentUser }) {
         </Link>
 
         <Navigation onAddClick={onAddClick} currentUser={currentUser} />
+        <button className="header__logout" type="button" onClick={onLogout}>
+          Log out
+        </button>
       </div>
     </header>
   );

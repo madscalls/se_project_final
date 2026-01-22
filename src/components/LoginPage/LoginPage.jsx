@@ -1,15 +1,14 @@
-import React, { useMemo, useState } from "react";
-import Modal from "../Modal/Modal";
-import LoginDotsBackdrop from "../LoginDotsBackdrop/LoginDotsBackdrop";
-import "./LoginModal.css";
+import React, { useContext, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
+import ColorDots from "../ColorDots/ColorDots";
+import { AuthContext } from "../../contexts/AuthContext.jsx";
 
-export default function LoginModal({
-  isOpen,
-  mode = "signin",
-  onClose,
-  onSubmit,
-  onSwitchMode,
-}) {
+export default function LoginPage() {
+  const navigate = useNavigate();
+  const { login, signup } = useContext(AuthContext);
+
+  const [mode, setMode] = useState("signin"); // "signin" | "signup"
   const isSignup = mode === "signup";
 
   const initial = useMemo(
@@ -25,6 +24,9 @@ export default function LoginModal({
   const [values, setValues] = useState(initial);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // bottom dots tint state
+  const [activeColor, setActiveColor] = useState("all");
 
   const setField = (name) => (e) => {
     if (error) setError("");
@@ -61,15 +63,25 @@ export default function LoginModal({
     setError("");
 
     try {
-      await onSubmit?.({
-        mode,
-        username: values.username.trim(),
+      if (isSignup) {
+        await signup({
+          username: values.username.trim(),
+          email: values.email.trim(),
+          password: values.password,
+        });
+
+        setMode("signin");
+        setValues(initial);
+        return;
+      }
+
+      await login({
         email: values.email.trim(),
         password: values.password,
       });
 
       setValues(initial);
-      onClose?.();
+      navigate("/", { replace: true });
     } catch (err) {
       setError(err?.message || "Something went wrong. Please try again.");
     } finally {
@@ -78,29 +90,30 @@ export default function LoginModal({
   };
 
   const switchMode = () => {
-    const nextMode = isSignup ? "signin" : "signup";
     setError("");
     setValues(initial);
-    onSwitchMode?.(nextMode);
+    setMode((prev) => (prev === "signup" ? "signin" : "signup"));
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      title={isSignup ? "Create account" : "Sign in"}
-      onClose={onClose}
-    >
-      <LoginDotsBackdrop tint="purple" />
+    <div className={`loginPage loginPage--${activeColor}`}>
+      <div className="loginPage__inner">
+        <header className="loginPage__header">
+          <h1 className="loginPage__brand">ic.</h1>
+          <p className="loginPage__tagline">See color, without noise.</p>
+        </header>
 
-      <form className="login" onSubmit={handleSubmit}>
-        <ul className="login__list">
-          {isSignup && (
-            <li className="login__input_wrapper">
-              <label className="login__label">
-                <span className="login__labelText">Username</span>
+        <section className="loginCard" aria-label="Login">
+          <h2 className="loginCard__title">
+            {isSignup ? "Create account" : "Welcome back"}
+          </h2>
+
+          <form className="loginForm" onSubmit={handleSubmit}>
+            <div className="loginForm__fields">
+              {isSignup && (
                 <input
                   type="text"
-                  className="login__input"
+                  className="loginForm__input"
                   placeholder="Username"
                   value={values.username}
                   onChange={setField("username")}
@@ -108,16 +121,11 @@ export default function LoginModal({
                   required
                   disabled={isSubmitting}
                 />
-              </label>
-            </li>
-          )}
+              )}
 
-          <li className="login__input_wrapper">
-            <label className="login__label">
-              <span className="login__labelText">Email</span>
               <input
                 type="email"
-                className="login__input"
+                className="loginForm__input"
                 placeholder="Email"
                 value={values.email}
                 onChange={setField("email")}
@@ -125,15 +133,10 @@ export default function LoginModal({
                 required
                 disabled={isSubmitting}
               />
-            </label>
-          </li>
 
-          <li className="login__input_wrapper">
-            <label className="login__label">
-              <span className="login__labelText">Password</span>
               <input
                 type="password"
-                className="login__input"
+                className="loginForm__input"
                 placeholder="Password"
                 value={values.password}
                 onChange={setField("password")}
@@ -141,16 +144,11 @@ export default function LoginModal({
                 required
                 disabled={isSubmitting}
               />
-            </label>
-          </li>
 
-          {isSignup && (
-            <li className="login__input_wrapper">
-              <label className="login__label">
-                <span className="login__labelText">Password again</span>
+              {isSignup && (
                 <input
                   type="password"
-                  className="login__input"
+                  className="loginForm__input"
                   placeholder="Password again"
                   value={values.passwordAgain}
                   onChange={setField("passwordAgain")}
@@ -158,34 +156,43 @@ export default function LoginModal({
                   required
                   disabled={isSubmitting}
                 />
-              </label>
-            </li>
-          )}
-        </ul>
+              )}
+            </div>
 
-        {error && (
-          <p className="login__error" role="alert">
-            {error}
-          </p>
-        )}
+            {error && (
+              <p className="loginForm__error" role="alert">
+                {error}
+              </p>
+            )}
 
-        <button className="login__submit" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Working..." : isSignup ? "Sign up" : "Sign in"}
-        </button>
+            <div className="loginForm__actions">
+              <button
+                className="loginForm__primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Loading..." : isSignup ? "Sign up" : "Sign in"}
+              </button>
 
-        <div className="login__divider" aria-hidden="true">
-          <span className="login__dividerText">or</span>
-        </div>
+              <div className="loginForm__or">or</div>
 
-        <button
-          className="login__reroute"
-          type="button"
-          onClick={switchMode}
-          disabled={isSubmitting}
-        >
-          {isSignup ? "Already have an account? Sign in" : "New here? Sign up"}
-        </button>
-      </form>
-    </Modal>
+              <button
+                className="loginForm__link"
+                type="button"
+                onClick={switchMode}
+                disabled={isSubmitting}
+              >
+                {isSignup ? "Sign in" : "Sign up"}
+              </button>
+            </div>
+          </form>
+
+          {/* Dots live INSIDE the card (like your screenshot) */}
+          <div className="loginCard__dots">
+            <ColorDots activeColor={activeColor} onChange={setActiveColor} />
+          </div>
+        </section>
+      </div>
+    </div>
   );
 }

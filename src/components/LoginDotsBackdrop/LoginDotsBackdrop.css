@@ -16,12 +16,6 @@
   content: "";
   position: absolute;
   inset: -20%;
-  /* subtle bottom hue fade like dashboard */
-  background: linear-gradient(
-    to top,
-    rgba(140, 60, 255, 0.55) 0%,
-    rgba(140, 60, 255, 0) 66%
-  );
   filter: blur(18px);
 }
 

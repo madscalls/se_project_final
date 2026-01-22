@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useEffect, useMemo, useState } from "react";
 
 export const AuthContext = createContext(null);
@@ -18,6 +19,7 @@ async function safeJson(res) {
 export default function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("ic_token"));
   const [user, setUser] = useState(null);
+
   const [isChecking, setIsChecking] = useState(true);
 
   async function fetchMe(activeToken) {
@@ -29,14 +31,15 @@ export default function AuthProvider({ children }) {
     return data;
   }
 
-  // Restore session on page load/refresh
   useEffect(() => {
     let cancelled = false;
 
     async function restore() {
       if (!token) {
-        setUser(null);
-        setIsChecking(false);
+        if (!cancelled) {
+          setUser(null);
+          setIsChecking(false);
+        }
         return;
       }
 
@@ -62,36 +65,48 @@ export default function AuthProvider({ children }) {
     };
   }, [token]);
 
-  // Sign in -> store token -> fetch user
   async function login({ email, password }) {
-    const res = await fetch(`${API_BASE}/api/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    setIsChecking(true);
 
-    const data = await safeJson(res);
-    if (!res.ok) throw new Error(data.message || "Signin failed");
+    try {
+      const res = await fetch(`${API_BASE}/api/signin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    localStorage.setItem("ic_token", data.token);
-    setToken(data.token);
+      const data = await safeJson(res);
+      if (!res.ok) throw new Error(data.message || "Signin failed");
 
-    const me = await fetchMe(data.token);
-    setUser(me);
-    return me;
+      localStorage.setItem("ic_token", data.token);
+      setToken(data.token);
+
+      const me = await fetchMe(data.token);
+      setUser(me);
+
+      return me;
+    } finally {
+      setIsChecking(false);
+    }
   }
 
-  // Sign up -> create user (does NOT auto-login unless you call login after)
   async function signup({ username, email, password }) {
-    const res = await fetch(`${API_BASE}/api/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: username, email, password }),
-    });
+    setIsChecking(true);
 
-    const data = await safeJson(res);
-    if (!res.ok) throw new Error(data.message || "Signup failed");
-    return data;
+    try {
+      const res = await fetch(`${API_BASE}/api/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: username, email, password }),
+      });
+
+      const data = await safeJson(res);
+      if (!res.ok) throw new Error(data.message || "Signup failed");
+
+      return data;
+    } finally {
+      setIsChecking(false);
+    }
   }
 
   function logout() {

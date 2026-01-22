@@ -1,8 +1,6 @@
-// const BASE_URL = "http://localhost:3001";
-
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://api.ic.oops.wtf"
+const BASE_URL =
+  import.meta.env.MODE === "production"
+    ? "https://ic.oops.wtf"
     : "http://localhost:3001";
 
 export function uploadImage(file) {
@@ -12,8 +10,11 @@ export function uploadImage(file) {
   return fetch(`${BASE_URL}/api/uploads/images`, {
     method: "POST",
     body: formData,
-  }).then((res) => {
-    if (!res.ok) return Promise.reject(res.status);
-    return res.json();
+  }).then(async (res) => {
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      return Promise.reject(data.message || `Upload failed (${res.status})`);
+    }
+    return data;
   });
 }
