@@ -43,7 +43,8 @@
   font-size: 15px;
   border-radius: 45px;
   border: none;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at center,
       rgba(255, 255, 255, 0.35),
       rgba(255, 255, 255, 0) 55%

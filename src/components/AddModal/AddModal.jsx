@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./AddModal.css";
-import { uploadImage } from "../../utils/api";
+import { uploadImage, createPost } from "../../utils/api";
 
 import HashIcon from "../../assets/Hash.svg";
 import Dropzone from "../Dropzone/Dropzone";
@@ -13,13 +13,12 @@ export default function AddModal({ onClose, onAddPost }) {
 
   const [selectedColor, setSelectedColor] = useState("red");
   const [file, setFile] = useState(null);
-
   const [hashtags, setHashtags] = useState("");
   const [error, setError] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-
   const [previewUrl, setPreviewUrl] = useState("");
 
+  // preview + cleanup
   useEffect(() => {
     if (!file) {
       setPreviewUrl("");
@@ -32,11 +31,12 @@ export default function AddModal({ onClose, onAddPost }) {
     return () => URL.revokeObjectURL(url);
   }, [file]);
 
+  // clear error when user changes file
   useEffect(() => {
     if (file && error) setError("");
-  }, [file, error]);
+  }, [file]); // (don’t include error here or it can re-run unnecessarily)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isUploading) return;
 
@@ -53,20 +53,31 @@ export default function AddModal({ onClose, onAddPost }) {
     setError("");
     setIsUploading(true);
 
-    uploadImage(file, token)
-      .then((data) => {
-        onAddPost({
-          imageUrl: data.url,
-          publicId: data.publicId,
+    try {
+      // 1) upload to cloudinary via backend
+      const uploaded = await uploadImage(file, token);
+
+      // 2) save post to DB (so it doesn't disappear on refresh)
+      const saved = await createPost(
+        {
+          imageUrl: uploaded.url,
+          publicId: uploaded.publicId,
           color: selectedColor,
-          hashtags: hashtags.trim(),
-        });
-        onClose();
-      })
-      .catch((err) =>
-        setError(err?.message || "Upload failed. Please try again."),
-      )
-      .finally(() => setIsUploading(false));
+          hashtags: hashtags.trim(), // keep as string for now
+        },
+        token,
+      );
+
+      // 3) update UI list
+      onAddPost(saved);
+
+      // 4) close modal
+      onClose();
+    } catch (err) {
+      setError(err?.message || "Upload failed. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -133,6 +144,14 @@ export default function AddModal({ onClose, onAddPost }) {
                 ))}
               </div>
             </li>
+
+            {error && (
+              <li>
+                <p className="login__error" role="alert">
+                  {error}
+                </p>
+              </li>
+            )}
 
             <li>
               <button
