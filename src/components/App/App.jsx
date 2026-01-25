@@ -106,7 +106,7 @@ export default function App() {
                   onCardClick={setSelectedPost}
                   activeColor={activeColor}
                   onDeletePost={handleDeletePost}
-                  currentUser={currentUser}
+                  currentUser={user}
                 />
               </>
             </ProtectedRoute>
