@@ -142,6 +142,8 @@ export default function App() {
         isOpen={!!selectedPost}
         post={selectedPost}
         onClose={() => setSelectedPost(null)}
+        currentUserId={user?._id}
+        onDeletePost={handleDeletePost}
       />
 
       <EditProfileModal
