@@ -13,10 +13,9 @@ export default function Cards({
   activeColor = "all",
   title,
   currentUser,
-  onDeletePost, // (post) => Promise<void>
+  onDeletePost,
 }) {
   const hasPosts = posts.length > 0;
-
   const pageTitle = title ?? `Color: ${formatColorLabel(activeColor)}`;
 
   return (
@@ -29,15 +28,16 @@ export default function Cards({
         ) : (
           <div className="grid">
             {posts.map((post) => {
+              const ownerId = post?.owner?._id || post?.owner;
               const isOwner =
-                currentUser?._id &&
-                String(post.owner) === String(currentUser._id);
+                currentUser?._id && String(ownerId) === String(currentUser._id);
 
               return (
                 <Card
                   key={post._id || post.id}
+                  post={post}
                   imageSrc={post.imageUrl}
-                  alt={post.alt || post.hashtags || "Uploaded image"}
+                  alt={(post.hashtags || []).join(" ") || "Uploaded image"}
                   onClick={() => onCardClick?.(post)}
                   showDelete={isOwner}
                   onDelete={() => onDeletePost?.(post)}

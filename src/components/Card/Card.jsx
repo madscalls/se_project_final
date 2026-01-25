@@ -2,15 +2,17 @@ import React from "react";
 import "./Card.css";
 
 export default function Card({
+  post,
   imageSrc,
   alt = "",
   onClick,
-  children,
   showDelete = false,
   onDelete,
+  children,
 }) {
   const handleDelete = (e) => {
-    e.stopPropagation(); // prevents triggering the card onClick
+    e.preventDefault();
+    e.stopPropagation();
     onDelete?.();
   };
 
@@ -30,15 +32,13 @@ export default function Card({
       {showDelete && (
         <button
           type="button"
-          className="card__close-btn"
+          className="card__delete-btn"
           aria-label="Delete post"
           onClick={handleDelete}
         >
-          ×
+          Delete
         </button>
       )}
-
-      <div className="card__hashtags" />
     </div>
   );
 }
