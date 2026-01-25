@@ -66,3 +66,8 @@ img.cardPlaceholder {
 .card__delete-btn:active {
   transform: scale(0.96);
 }
+
+.card__delete-icon {
+  height: 10px;
+  width: auto;
+}

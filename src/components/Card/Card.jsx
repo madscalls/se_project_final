@@ -1,8 +1,8 @@
 import React from "react";
 import "./Card.css";
+import trashIcon from "../../assets/trash-icon.svg";
 
 export default function Card({
-  post,
   imageSrc,
   alt = "",
   onClick,
@@ -10,12 +10,6 @@ export default function Card({
   onDelete,
   children,
 }) {
-  const handleDelete = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onDelete?.();
-  };
-
   return (
     <div
       className="card"
@@ -32,11 +26,18 @@ export default function Card({
       {showDelete && (
         <button
           type="button"
-          className="card__delete-btn"
+          className="card__delete"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete?.();
+          }}
           aria-label="Delete post"
-          onClick={handleDelete}
         >
-          Delete
+          <img
+            src={trashIcon}
+            alt="Delete Button"
+            className="card__delete-Icon"
+          />
         </button>
       )}
     </div>

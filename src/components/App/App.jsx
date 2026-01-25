@@ -31,6 +31,7 @@ export default function App() {
     () =>
       user
         ? {
+            _id: user._id,
             username: user.name || user.email,
             avatarUrl: user.avatarUrl || "",
           }
@@ -62,11 +63,10 @@ export default function App() {
     setPosts((prev) => [{ ...newPost }, ...prev]);
   };
 
-  const handleDeletePost = async (postId) => {
-    const token = localStorage.getItem("jwt");
-    await deletePost(postId, token);
-    setPosts((prev) => prev.filter((p) => p._id !== postId));
-    setSelectedPost((prev) => (prev?._id === postId ? null : prev));
+  const handleDeletePost = async (post) => {
+    await deletePost(post._id);
+    setPosts((prev) => prev.filter((p) => p._id !== post._id));
+    if (selectedPost?._id === post._id) setSelectedPost(null);
   };
 
   if (isChecking) {
@@ -106,7 +106,7 @@ export default function App() {
                   onCardClick={setSelectedPost}
                   activeColor={activeColor}
                   onDeletePost={handleDeletePost}
-                  currentUserId={user?._id}
+                  currentUser={currentUser}
                 />
               </>
             </ProtectedRoute>
