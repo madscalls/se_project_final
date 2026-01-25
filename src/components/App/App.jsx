@@ -13,17 +13,13 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import LoginPage from "../LoginPage/LoginPage";
 import Preloader from "../Preloader/Preloader";
 
-import { getPosts } from "../../utils/api";
+import { getPosts, deletePost } from "../../utils/api";
 import { AuthContext } from "../../contexts/AuthContext.jsx";
-
-/* ---------------- Protected Route ---------------- */
 
 function ProtectedRoute({ isAllowed, redirectTo = "/login", children }) {
   if (!isAllowed) return <Navigate to={redirectTo} replace />;
   return children;
 }
-
-/* ---------------- App ---------------- */
 
 export default function App() {
   const navigate = useNavigate();
@@ -31,7 +27,6 @@ export default function App() {
   const { user, isLoggedIn, isChecking, logout, updateProfile } =
     useContext(AuthContext);
 
-  /* ---------- derived user object for UI ---------- */
   const currentUser = useMemo(
     () =>
       user
@@ -43,7 +38,6 @@ export default function App() {
     [user],
   );
 
-  /* ---------- UI state ---------- */
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -51,13 +45,11 @@ export default function App() {
   const [posts, setPosts] = useState([]);
   const [activeColor, setActiveColor] = useState("all");
 
-  /* ---------- derived posts ---------- */
   const visiblePosts =
     activeColor === "all"
       ? posts
       : posts.filter((p) => p.color === activeColor);
 
-  /* ---------- posts ---------- */
   useEffect(() => {
     if (!isLoggedIn) return;
 
@@ -67,15 +59,20 @@ export default function App() {
   }, [isLoggedIn]);
 
   const handleAddPost = (newPost) => {
-    setPosts((prev) => [{ id: Date.now(), ...newPost }, ...prev]);
+    setPosts((prev) => [{ ...newPost }, ...prev]);
   };
 
-  /* ---------- loading ---------- */
+  const handleDeletePost = async (postId) => {
+    const token = localStorage.getItem("jwt");
+    await deletePost(postId, token);
+    setPosts((prev) => prev.filter((p) => p._id !== postId));
+    setSelectedPost((prev) => (prev?._id === postId ? null : prev));
+  };
+
   if (isChecking) {
     return <Preloader />;
   }
 
-  /* ---------- render ---------- */
   return (
     <div className={`app app--${activeColor}`}>
       {isLoggedIn && (
@@ -90,13 +87,11 @@ export default function App() {
       )}
 
       <Routes>
-        {/* ---------- LOGIN ---------- */}
         <Route
           path="/login"
           element={isLoggedIn ? <Navigate to="/" replace /> : <LoginPage />}
         />
 
-        {/* ---------- HOME ---------- */}
         <Route
           path="/"
           element={
@@ -110,13 +105,14 @@ export default function App() {
                   posts={visiblePosts}
                   onCardClick={setSelectedPost}
                   activeColor={activeColor}
+                  onDeletePost={handleDeletePost}
+                  currentUserId={user?._id}
                 />
               </>
             </ProtectedRoute>
           }
         />
 
-        {/* ---------- PROFILE ---------- */}
         <Route
           path="/profile"
           element={
@@ -129,14 +125,12 @@ export default function App() {
           }
         />
 
-        {/* ---------- FALLBACK ---------- */}
         <Route
           path="*"
           element={<Navigate to={isLoggedIn ? "/" : "/login"} replace />}
         />
       </Routes>
 
-      {/* ---------- MODALS ---------- */}
       {isAddOpen && (
         <AddModal
           onClose={() => setIsAddOpen(false)}

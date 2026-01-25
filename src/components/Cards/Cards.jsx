@@ -12,6 +12,8 @@ export default function Cards({
   onCardClick,
   activeColor = "all",
   title,
+  currentUser,
+  onDeletePost, // (post) => Promise<void>
 }) {
   const hasPosts = posts.length > 0;
 
@@ -26,14 +28,22 @@ export default function Cards({
           <p className="cards__empty">No posts yet. Add one to get started.</p>
         ) : (
           <div className="grid">
-            {posts.map((post) => (
-              <Card
-                key={post._id || post.id}
-                imageSrc={post.imageUrl}
-                alt={post.alt || post.hashtags || "Uploaded image"}
-                onClick={() => onCardClick?.(post)}
-              />
-            ))}
+            {posts.map((post) => {
+              const isOwner =
+                currentUser?._id &&
+                String(post.owner) === String(currentUser._id);
+
+              return (
+                <Card
+                  key={post._id || post.id}
+                  imageSrc={post.imageUrl}
+                  alt={post.alt || post.hashtags || "Uploaded image"}
+                  onClick={() => onCardClick?.(post)}
+                  showDelete={isOwner}
+                  onDelete={() => onDeletePost?.(post)}
+                />
+              );
+            })}
           </div>
         )}
       </div>

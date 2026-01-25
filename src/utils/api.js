@@ -71,3 +71,19 @@ export function getMe(token) {
     headers: { Authorization: `Bearer ${token}` },
   }).then(handleRes);
 }
+
+export async function deletePost(postId, token) {
+  const res = await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.message || "Delete failed");
+  }
+
+  return res.json();
+}

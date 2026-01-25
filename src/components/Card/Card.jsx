@@ -1,7 +1,19 @@
 import React from "react";
 import "./Card.css";
 
-export default function Card({ imageSrc, alt = "", onClick, children }) {
+export default function Card({
+  imageSrc,
+  alt = "",
+  onClick,
+  children,
+  showDelete = false,
+  onDelete,
+}) {
+  const handleDelete = (e) => {
+    e.stopPropagation(); // prevents triggering the card onClick
+    onDelete?.();
+  };
+
   return (
     <div
       className="card"
@@ -15,9 +27,16 @@ export default function Card({ imageSrc, alt = "", onClick, children }) {
 
       {children}
 
-      <button type="button" className="card__close-btn" aria-label="Remove">
-        ×
-      </button>
+      {showDelete && (
+        <button
+          type="button"
+          className="card__close-btn"
+          aria-label="Delete post"
+          onClick={handleDelete}
+        >
+          ×
+        </button>
+      )}
 
       <div className="card__hashtags" />
     </div>
