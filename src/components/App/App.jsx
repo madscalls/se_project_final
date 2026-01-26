@@ -24,7 +24,7 @@ function ProtectedRoute({ isAllowed, redirectTo = "/login", children }) {
 export default function App() {
   const navigate = useNavigate();
 
-  const { user, isLoggedIn, isChecking, logout, updateProfile } =
+  const { user, token, isLoggedIn, isChecking, logout, updateProfile } =
     useContext(AuthContext);
 
   const currentUser = useMemo(
@@ -64,7 +64,7 @@ export default function App() {
   };
 
   const handleDeletePost = async (post) => {
-    await deletePost(post._id);
+    await deletePost(post._id, token);
     setPosts((prev) => prev.filter((p) => p._id !== post._id));
     if (selectedPost?._id === post._id) setSelectedPost(null);
   };

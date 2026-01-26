@@ -39,10 +39,7 @@ export default function Cards({
                   imageSrc={post.imageUrl}
                   alt={(post.hashtags || []).join(" ") || "Uploaded image"}
                   onClick={() => onCardClick?.(post)}
-                  showDelete={
-                    currentUser?._id &&
-                    String(post.owner) === String(currentUser._id)
-                  }
+                  showDelete={isOwner}
                   onDelete={() => onDeletePost?.(post)}
                 />
               );
