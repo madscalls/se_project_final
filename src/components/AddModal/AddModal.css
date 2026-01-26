@@ -201,3 +201,25 @@ li {
 .modal__close-btn:hover {
   color: rgba(0, 0, 0, 0.85);
 }
+@media (max-width: 520px) {
+  .modal__block {
+    width: min(520px, 94vw);
+    padding: 16px;
+    border-radius: 18px;
+    max-height: 84vh;
+    overflow-y: auto;
+  }
+
+  .modal__title {
+    font-size: 24px;
+  }
+
+  .colorRadios {
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+
+  .modal__Input {
+    margin-bottom: 18px;
+  }
+}

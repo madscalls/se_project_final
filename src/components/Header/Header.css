@@ -166,3 +166,39 @@ nav.topbarActions {
   background-clip: text;
   color: transparent;
 }
+
+@media (max-width: 520px) {
+  .topbar {
+    padding: 10px 0 14px;
+  }
+
+  .topbar__inner {
+    height: 54px;
+    padding: 0 12px;
+  }
+
+  .logo {
+    font-size: 20px;
+    padding: 0;
+    left: 0;
+  }
+
+  .topbarActions {
+    gap: 8px;
+  }
+
+  .iconBtn {
+    height: 34px;
+    width: 34px;
+  }
+
+  .iconBtnImg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .iconBtnImg--avatar {
+    width: 26px;
+    height: 26px;
+  }
+}

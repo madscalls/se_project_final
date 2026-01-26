@@ -18,3 +18,19 @@
   margin: 12px 0 0;
   opacity: 0.7;
 }
+
+@media (max-width: 520px) {
+  .content {
+    padding: 0 14px 18px;
+  }
+
+  .pageTitle {
+    font-size: 16px;
+    margin: 0 0 12px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 12px;
+  }
+}

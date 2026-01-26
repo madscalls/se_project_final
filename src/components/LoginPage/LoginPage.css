@@ -255,9 +255,31 @@
   .loginCard__title {
     font-size: 26px;
   }
-}
+  .loginPage__inner {
+    padding: 26px 14px;
+  }
 
-.footer {
-  background-color: #f6f6f6;
-  z-index: 0;
+  .loginPage__brand {
+    font-size: 26px;
+  }
+
+  .loginCard {
+    width: min(420px, 94vw);
+    padding: 28px 18px 56px;
+    border-radius: 18px;
+  }
+
+  .loginCard__title {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .loginForm__input {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .loginForm__primary {
+    width: 100%;
+  }
 }

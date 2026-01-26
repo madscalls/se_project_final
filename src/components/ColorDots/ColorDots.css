@@ -41,3 +41,20 @@
 .dot--purple {
   background: #af52de;
 }
+
+@media (max-width: 520px) {
+  .colorDots {
+    padding: 10px 0 14px;
+  }
+
+  .colorDots__inner {
+    gap: 18px;
+    padding: 0 12px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border: none;
+  }
+}
