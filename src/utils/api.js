@@ -72,7 +72,10 @@ export function getMe(token) {
   }).then(handleRes);
 }
 
-export async function deletePost(postId, token) {
+export async function deletePost(postId) {
+  const token = localStorage.getItem("ic_token");
+  if (!token) throw new Error("Missing token");
+
   const res = await fetch(`${API_BASE}/api/posts/${postId}`, {
     method: "DELETE",
     headers: {
