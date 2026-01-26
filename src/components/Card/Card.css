@@ -35,6 +35,17 @@ img.cardPlaceholder {
 
 .card__delete {
   background-color: transparent;
+  box-shadow: none;
+  border-radius: 50%;
+  border: none;
+}
+.card__delete:hover {
+  background-color: rgba(187, 2, 2, 0.467);
+  box-shadow: #2506067d;
+}
+
+.card__delete:active {
+  background-color: red;
 }
 
 .card__delete-btn {
