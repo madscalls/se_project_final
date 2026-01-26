@@ -33,6 +33,10 @@ img.cardPlaceholder {
   object-fit: cover;
 }
 
+.card__delete {
+  background-color: transparent;
+}
+
 .card__delete-btn {
   position: absolute;
   left: 12px;

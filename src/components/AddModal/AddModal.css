@@ -37,6 +37,7 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   font-size: 14px;
   background: #fff;
+  color: #282828;
 }
 
 .modal__Input::placeholder {
@@ -68,7 +69,8 @@ li {
   font-size: 15px;
   border-radius: 45px;
   border: none;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at center,
       rgba(255, 255, 255, 0.35),
       rgba(255, 255, 255, 0) 55%
