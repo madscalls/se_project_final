@@ -170,6 +170,8 @@ nav.topbarActions {
 @media (max-width: 520px) {
   .topbar {
     padding: 10px 0 14px;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .topbar__inner {
@@ -177,10 +179,17 @@ nav.topbarActions {
     padding: 0 12px;
   }
 
+  .topbar,
+  .topbar__inner {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
   .logo {
     font-size: 20px;
     padding: 0;
     left: 0;
+    margin: 0 auto;
   }
 
   .topbarActions {

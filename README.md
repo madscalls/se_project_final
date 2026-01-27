@@ -9,10 +9,12 @@ Right now I've been letting friends and family know about what I've made and the
 ## Some features:
 
 -Dropbox for easy uploads
--sign-in and sign-up with authorization
--color coordinated oganization for every mood
--Tags for search optimization
--Profile page & avatar for personalization
+-sign-in and sign-up with authorization & hashing
+-Error handling
+-Cloudinary & Multer integration for validation type and size
+-Color coordinated oganization for every mood
+-Tags for search optimization -- in progress
+-Profile page & avatar for personalization -- in progress
 -Fun color css animations/details for a little bit of serotonin
 
 ### What I wish to add in the future:

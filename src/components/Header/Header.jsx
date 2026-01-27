@@ -19,7 +19,7 @@ export default function Header({
           <SearchBar placeholder="Explore..." />
         </div>
         <Link to="/" className="logo">
-          ic<span className="logoDot">.</span>
+          ic.
         </Link>
 
         <Navigation onAddClick={onAddClick} currentUser={currentUser} />
