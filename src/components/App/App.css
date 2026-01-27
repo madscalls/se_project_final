@@ -42,6 +42,7 @@ body {
   position: relative;
   min-height: 100vh;
   isolation: isolate;
+  background: #fff;
 }
 
 .app::before {

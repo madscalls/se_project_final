@@ -15,6 +15,7 @@
   background: rgba(0, 0, 0, 0.02);
   position: relative;
   background-color: rgb(235, 235, 235);
+  overflow: hidden;
 }
 
 .dropzone__star1 {
@@ -70,7 +71,8 @@
 
 .dropzone__preview {
   width: 100%;
-  max-height: 260px;
+  aspect-ratio: 4 / 3;
+  max-height: none;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -78,4 +80,63 @@
 .dropzone__error {
   margin: 8px 0 0;
   font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .dropzone__box {
+    min-height: 140px;
+    padding: 12px;
+  }
+
+  .dropzone__title {
+    font-size: 14px;
+  }
+
+  .dropzone__subtitle {
+    font-size: 13px;
+  }
+
+  .dropzone__hint {
+    font-size: 11px;
+  }
+
+  .dropzone__star1 {
+    top: 18%;
+    left: 78%;
+    transform: scale(0.32) rotate(36deg);
+  }
+
+  .dropzone__star2 {
+    top: 32%;
+    left: 84%;
+    transform: scale(0.35);
+  }
+
+  .dropzone__star3 {
+    top: 78%;
+    left: 28%;
+    transform: scale(0.45) rotate(36deg);
+  }
+
+  .dropzone__star4 {
+    top: 66%;
+    left: 34%;
+    transform: scale(0.45) rotate(80deg);
+  }
+
+  .dropzone__star5 {
+    top: 74%;
+    left: 44%;
+    transform: scale(0.4);
+  }
+
+  .dropbox__camera {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    opacity: 0.55;
+  }
 }
