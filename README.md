@@ -25,4 +25,16 @@ I'm tweaking the mobile interface since it would be more geared for mobile users
 
 As a final project, I am extremly proud of what I've come up with and hopefully it shows how far I have come as a software engineer. I cannot wait to keep learning and making more advanced and multifunctional applications with great UI and UX. Thanks so much for stopping by!
 
+### main url
+
+https://ic.oops.wtf/
+
+### frontend
+
 https://madscalls.github.io/se_project_final/
+
+### backend
+
+https://github.com/madscalls/introspective_color_backend
+
+### video
