@@ -11,9 +11,7 @@ export default function ColorDots({ activeColor, onChange }) {
           <button
             key={c}
             type="button"
-            className={`dot dot--${c} ${
-              activeColor === c ? "dot--active" : ""
-            }`}
+            className={`dot dot_${c} ${activeColor === c ? "dot_active" : ""}`}
             aria-pressed={activeColor === c}
             aria-label={`Filter ${c}`}
             onClick={() => onChange(c)}

@@ -43,11 +43,12 @@
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 2;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer::before {

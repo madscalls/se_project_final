@@ -1,3 +1,30 @@
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay/ClashDisplay-ExtraLight.otf")
+    format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay/ClashDisplay-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay/ClashDisplay-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,9 +32,9 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: system-ui, sans-serif;
   background-color: #fff;
   color: #111;
+  font-family: "ClashDisplay", Arial, Helvetica, sans-serif;
 }
 
 .topbar__inner,
