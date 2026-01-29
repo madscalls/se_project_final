@@ -38,3 +38,5 @@ https://madscalls.github.io/se_project_final/
 https://github.com/madscalls/introspective_color_backend
 
 ### video
+
+https://docs.google.com/document/d/1HYKLbFc-SV_iGiOzuB4N7urKIK5xkk3xQJyFZRorh3g/edit?tab=t.0
