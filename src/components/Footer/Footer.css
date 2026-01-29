@@ -1,4 +1,4 @@
-.footer {
+/* .footer {
   margin-top: auto;
   background: transparent;
   position: relative;
@@ -33,6 +33,41 @@
 }
 
 .footer > * {
+  position: relative;
+  z-index: 1;
+} */
+.footer {
+  margin-top: auto;
+  background: transparent;
+  position: relative;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.92),
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  pointer-events: none;
+}
+
+.footer__text,
+.footer__text-right {
+  margin: 0;
   position: relative;
   z-index: 1;
 }

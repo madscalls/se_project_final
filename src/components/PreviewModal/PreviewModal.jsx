@@ -5,6 +5,8 @@ import "./PreviewModal.css";
 export default function PreviewModal({ isOpen, onClose, post }) {
   if (!post) return null;
 
+  const tags = Array.isArray(post.hashtags) ? post.hashtags : [];
+
   return (
     <Modal
       isOpen={isOpen}
@@ -17,7 +19,16 @@ export default function PreviewModal({ isOpen, onClose, post }) {
           src={post.imageUrl}
           alt={post.alt || "Post preview"}
         />
-        {post.hashtags && <p className="preview__tags">{post.hashtags}</p>}
+
+        {tags.length > 0 && (
+          <div className="preview__tags">
+            {tags.map((t) => (
+              <span key={t} className="tag">
+                #{t}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Modal>
   );

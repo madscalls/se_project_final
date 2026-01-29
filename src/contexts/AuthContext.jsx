@@ -6,7 +6,7 @@ export const AuthContext = createContext(null);
 const API_BASE =
   import.meta.env.MODE === "production"
     ? "https://ic.oops.wtf"
-    : "http://localhost:3001";
+    : "http://localhost:3000";
 
 async function safeJson(res) {
   try {
@@ -81,6 +81,9 @@ export default function AuthProvider({ children }) {
 
       const me = await fetchMe(data.token);
       setUser(me);
+
+      await new Promise((resolve) => setTimeout(resolve, 600));
+
       return me;
     } finally {
       setIsChecking(false);

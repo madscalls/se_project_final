@@ -42,14 +42,21 @@ export default function App() {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
-
   const [posts, setPosts] = useState([]);
   const [activeColor, setActiveColor] = useState("all");
+  const [query, setQuery] = useState("");
 
-  const visiblePosts =
-    activeColor === "all"
-      ? posts
-      : posts.filter((p) => p.color === activeColor);
+  const normalizedQuery = query.trim().replace(/^#/, "").toLowerCase();
+
+  const visiblePosts = posts
+    .filter((p) => (activeColor === "all" ? true : p.color === activeColor))
+    .filter((p) => {
+      if (!normalizedQuery) return true;
+      const tags = Array.isArray(p.hashtags) ? p.hashtags : [];
+      return tags.some((t) =>
+        String(t).toLowerCase().includes(normalizedQuery),
+      );
+    });
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -78,6 +85,8 @@ export default function App() {
       {isLoggedIn && (
         <Header
           currentUser={currentUser}
+          query={query}
+          onQueryChange={setQuery}
           onAddClick={() => setIsAddOpen(true)}
           onLogout={() => {
             logout();
