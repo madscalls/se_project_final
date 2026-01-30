@@ -37,6 +37,7 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   font-size: 14px;
   background: #fff;
+  color: #282828;
 }
 
 .modal__Input::placeholder {
@@ -68,7 +69,8 @@ li {
   font-size: 15px;
   border-radius: 45px;
   border: none;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       circle at center,
       rgba(255, 255, 255, 0.35),
       rgba(255, 255, 255, 0) 55%
@@ -198,4 +200,26 @@ li {
 }
 .modal__close-btn:hover {
   color: rgba(0, 0, 0, 0.85);
+}
+@media (max-width: 520px) {
+  .modal__block {
+    width: min(520px, 94vw);
+    padding: 16px;
+    border-radius: 18px;
+    max-height: 84vh;
+    overflow-y: auto;
+  }
+
+  .modal__title {
+    font-size: 24px;
+  }
+
+  .colorRadios {
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+
+  .modal__Input {
+    margin-bottom: 18px;
+  }
 }

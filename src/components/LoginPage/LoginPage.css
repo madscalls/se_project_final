@@ -1,0 +1,289 @@
+/* =========================
+   Page layout (match screenshot)
+========================= */
+
+.loginPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f4f4f4;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* subtle glow driven by the bottom dots selection */
+.loginPage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: blur(60px);
+  background: radial-gradient(
+    circle at 50% 55%,
+    color-mix(in srgb, var(--glow, rgba(0, 0, 0, 0)), transparent 78%),
+    transparent 60%
+  );
+}
+
+.loginPage__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  padding: 48px 24px;
+  text-align: center;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================
+   Header
+========================= */
+
+.loginPage__header {
+  margin-bottom: 18px;
+}
+
+.loginPage__brand {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.loginPage__tagline {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+/* =========================
+   Card
+========================= */
+
+.loginCard {
+  position: relative;
+  width: min(520px, 92vw);
+  border-radius: 22px;
+  background: #fff;
+  padding: 48px 48px 64px; /* extra bottom for dots */
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.1);
+}
+
+.loginCard__title {
+  margin: 0 0 24px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* =========================
+   Form
+========================= */
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.loginForm__input {
+  height: 50px;
+  border-radius: 999px;
+  background: #ededed;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 18px;
+  color: rgb(58, 58, 58);
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.loginForm__input:focus {
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.loginForm__error {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #d00;
+}
+
+/* =========================
+   Actions
+========================= */
+
+.loginForm__actions {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginForm__primary {
+  height: 44px;
+  padding: 0 34px;
+  border-radius: 999px;
+  border: none;
+  background: #6f6f6f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.loginForm__primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.loginForm__primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.loginForm__or {
+  margin: 10px 0;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.loginForm__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 2px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.loginForm__link:hover {
+  background: linear-gradient(
+    90deg,
+    #ff3b30,
+    #ff9500,
+    #ffcc00,
+    #34c759,
+    #007aff,
+    #5856d6,
+    #af52de
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   Dots 
+========================= */
+
+.loginCard__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.loginPage .colorDots {
+  background: transparent;
+}
+
+.loginPage .colorDots__inner {
+  gap: 10px;
+}
+
+.loginPage .dot {
+  width: 10px;
+  height: 19px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  opacity: 0.45;
+  transform: none;
+}
+
+.loginPage .dot--active {
+  opacity: 0.95;
+  transform: scale(1.15);
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 3px;
+}
+
+.loginPage .dot--all {
+  display: none;
+}
+
+/* =========================
+   Glow 
+   ========================= */
+
+.loginPage--red {
+  --glow: #ff3b30;
+}
+.loginPage--orange {
+  --glow: #ff9500;
+}
+.loginPage--yellow {
+  --glow: #ffcc00;
+}
+.loginPage--green {
+  --glow: #34c759;
+}
+.loginPage--blue {
+  --glow: #007aff;
+}
+.loginPage--purple {
+  --glow: #af52de;
+}
+
+@media (max-width: 520px) {
+  .loginCard {
+    padding: 36px 22px 60px;
+  }
+  .loginCard__title {
+    font-size: 26px;
+  }
+  .loginPage__inner {
+    padding: 26px 14px;
+  }
+
+  .loginPage__brand {
+    font-size: 26px;
+  }
+
+  .loginCard {
+    width: min(420px, 94vw);
+    padding: 28px 18px 56px;
+    border-radius: 18px;
+  }
+
+  .loginCard__title {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .loginForm__input {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .loginForm__primary {
+    width: 100%;
+  }
+}

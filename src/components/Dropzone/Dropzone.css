@@ -1,0 +1,142 @@
+.dropzone__input {
+  display: none;
+}
+
+.dropzone__box {
+  width: 100%;
+  min-height: 160px;
+  /* border: 2px dashed rgba(0, 0, 0, 0.25); */
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.02);
+  position: relative;
+  background-color: rgb(235, 235, 235);
+  overflow: hidden;
+}
+
+.dropzone__star1 {
+  position: absolute;
+  top: 51px;
+  left: 268px;
+  transform: scale(0.4) rotate(36deg);
+}
+.dropzone__star2 {
+  position: absolute;
+  top: 77px;
+  left: 283px;
+}
+.dropzone__star3 {
+  position: absolute;
+  top: 149px;
+  left: 119px;
+  transform: scale(0.6) rotate(36deg);
+}
+.dropzone__star4 {
+  position: absolute;
+  top: 122px;
+  left: 127px;
+  transform: scale(0.6) rotate(80deg);
+}
+.dropzone__star5 {
+  position: absolute;
+  top: 143px;
+  left: 152px;
+}
+
+.dropzone__box_dragging {
+  border-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dropzone__title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.dropzone__subtitle {
+  margin: 6px 0 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.dropzone__hint {
+  margin: 10px 0 0;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.dropzone__preview {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: none;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.dropzone__error {
+  margin: 8px 0 0;
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .dropzone__box {
+    min-height: 140px;
+    padding: 12px;
+  }
+
+  .dropzone__title {
+    font-size: 14px;
+  }
+
+  .dropzone__subtitle {
+    font-size: 13px;
+  }
+
+  .dropzone__hint {
+    font-size: 11px;
+  }
+
+  .dropzone__star1 {
+    top: 18%;
+    left: 78%;
+    transform: scale(0.32) rotate(36deg);
+  }
+
+  .dropzone__star2 {
+    top: 32%;
+    left: 84%;
+    transform: scale(0.35);
+  }
+
+  .dropzone__star3 {
+    top: 78%;
+    left: 28%;
+    transform: scale(0.45) rotate(36deg);
+  }
+
+  .dropzone__star4 {
+    top: 66%;
+    left: 34%;
+    transform: scale(0.45) rotate(80deg);
+  }
+
+  .dropzone__star5 {
+    top: 74%;
+    left: 44%;
+    transform: scale(0.4);
+  }
+
+  .dropbox__camera {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    opacity: 0.55;
+  }
+}

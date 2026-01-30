@@ -18,21 +18,43 @@
   font-size: 0.5rem;
 }
 
-.dot--red {
+.dot_active {
+  outline: 2px solid #000;
+  outline-offset: 3px;
+}
+
+.dot_red {
   background: #ff3b30;
 }
-.dot--orange {
+.dot_orange {
   background: #ff9500;
 }
-.dot--yellow {
+.dot_yellow {
   background: #ffcc00;
 }
-.dot--green {
+.dot_green {
   background: #34c759;
 }
-.dot--blue {
+.dot_blue {
   background: #007aff;
 }
-.dot--purple {
+.dot_purple {
   background: #af52de;
+}
+
+@media (max-width: 520px) {
+  .colorDots {
+    padding: 10px 0 14px;
+  }
+
+  .colorDots__inner {
+    gap: 18px;
+    padding: 0 12px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border: none;
+  }
 }

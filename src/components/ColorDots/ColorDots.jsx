@@ -1,8 +1,8 @@
 import React from "react";
 import "./ColorDots.css";
 
-export default function ColorDots() {
-  const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+export default function ColorDots({ activeColor, onChange }) {
+  const colors = ["all", "red", "orange", "yellow", "green", "blue", "purple"];
 
   return (
     <div className="colorDots" aria-label="Color filters">
@@ -10,9 +10,11 @@ export default function ColorDots() {
         {colors.map((c) => (
           <button
             key={c}
-            className={`dot dot--${c}`}
-            aria-label={c}
             type="button"
+            className={`dot dot_${c} ${activeColor === c ? "dot_active" : ""}`}
+            aria-pressed={activeColor === c}
+            aria-label={`Filter ${c}`}
+            onClick={() => onChange(c)}
           />
         ))}
       </div>

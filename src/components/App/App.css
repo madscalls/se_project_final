@@ -1,3 +1,30 @@
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-ExtraLight.otf")
+    format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/vendor/fonts/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,9 +32,16 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #fff;
+  background-color: #fff;
   color: #111;
+  font-family:
+    "ClashDisplay",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 .topbar__inner,
@@ -37,3 +71,85 @@ body {
     grid-template-columns: 1fr;
   }
 } */
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  background: #fff;
+}
+
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  /* transition: background 350ms ease; */
+}
+
+.app--red::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 0, 0, 0.75) 0%,
+    rgba(255, 0, 0, 0) 66%,
+    rgba(255, 0, 0, 0) 100%
+  );
+}
+
+.app--orange::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 140, 0, 0.75) 0%,
+    rgba(255, 140, 0, 0) 66%,
+    rgba(255, 140, 0, 0) 100%
+  );
+}
+
+.app--yellow::before {
+  background: linear-gradient(
+    to top,
+    rgba(255, 215, 0, 0.75) 0%,
+    rgba(255, 215, 0, 0) 66%,
+    rgba(255, 215, 0, 0) 100%
+  );
+}
+
+.app--green::before {
+  background: linear-gradient(
+    to top,
+    rgba(1, 201, 74, 0.75) 0%,
+    rgba(0, 170, 90, 0) 66%,
+    rgba(0, 170, 90, 0) 100%
+  );
+}
+
+.app--blue::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 120, 255, 0.75) 0%,
+    rgba(0, 120, 255, 0) 66%,
+    rgba(0, 120, 255, 0) 100%
+  );
+}
+
+.app--purple::before {
+  background: linear-gradient(
+    to top,
+    rgba(140, 60, 255, 0.75) 0%,
+    rgba(140, 60, 255, 0) 66%,
+    rgba(140, 60, 255, 0) 100%
+  );
+}
+
+/* Neutral/default */
+.app--all::before {
+  background: none;
+}
+
+@media (max-width: 520px) {
+  .colorDots__inner {
+    gap: 14px;
+    padding: 0 12px;
+  }
+}
